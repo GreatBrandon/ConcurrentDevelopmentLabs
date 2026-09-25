@@ -8,7 +8,7 @@ import (
 
 // make struct containing channel
 // add init, acquire and release
-type semaphore struct {
+type Semaphore struct {
 	theCounter chan struct{}
 }
 
