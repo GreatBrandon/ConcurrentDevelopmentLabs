@@ -1,3 +1,6 @@
+// Author: Brandon Jaroszczak
+// Student number: C00296052
+
 package main
 
 import (

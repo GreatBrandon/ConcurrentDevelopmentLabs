@@ -1,12 +1,5 @@
 // Dining Philosophers Template Code
-// Author: Joseph Kehoe
-// Created: 21/10/24
-//GPL Licence
-// MISSING:
-// 1. Readme
-// 2. Full licence info.
-// 3. Comments
-// 4. It can Deadlock!
+// Modified by: Brandon Jaroszczak
 
 package main
 
@@ -32,7 +25,7 @@ func eat(index int) {
 }
 
 func getForks(index int, forks map[int]chan bool) {
-	if index == 4 { // 1 philosopher chooses differently
+	if index == 4 { // 1 philosopher chooses differently, prevents deadlock
 		forks[(index+1)%5] <- true
 		forks[index] <- true
 	} else {

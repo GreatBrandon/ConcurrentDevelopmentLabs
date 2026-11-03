@@ -17,9 +17,7 @@
 //--------------------------------------------
 // Author: Joseph Kehoe (Joseph.Kehoe@setu.ie)
 // Created on 30/9/2024
-// Modified by:
-// Issues:
-// The barrier is not implemented!
+// Modified by: Brandon Jaroszczak
 //--------------------------------------------
 
 package main

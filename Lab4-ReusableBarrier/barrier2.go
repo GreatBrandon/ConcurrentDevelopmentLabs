@@ -17,13 +17,9 @@
 //--------------------------------------------
 // Author: Joseph Kehoe (Joseph.Kehoe@setu.ie)
 // Created on 30/9/2024
-// Modified by:
-// Description:
-// A simple barrier implemented using mutex and unbuffered channel
-// Issues:
-// None I hope
-//1. Change mutex to atomic variable
-//2. Make it a reusable barrier
+// Modified by: Brandon Jaroszczak
+// Description: A simple barrier implemented using mutex and unbuffered channel
+// Issues: None
 //--------------------------------------------
 
 package main
@@ -37,9 +33,8 @@ import (
 )
 
 type Barrier struct {
-	count atomic.Int64
-	n     int64
-	//mu     sync.Mutex
+	count  atomic.Int64
+	n      int64
 	before chan int
 	after  chan int
 }
