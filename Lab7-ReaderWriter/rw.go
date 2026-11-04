@@ -13,7 +13,7 @@ import (
 type Buffer struct {
 	data int
 	quit bool
-	rwmu sync.RWMutex
+	mu   sync.RWMutex
 }
 
 func reader(n int, wg *sync.WaitGroup, b *Buffer) {
@@ -24,10 +24,10 @@ func reader(n int, wg *sync.WaitGroup, b *Buffer) {
 	for {
 		X := time.Duration(rand.Intn(500))
 		time.Sleep(X * time.Millisecond)
-		b.rwmu.RLock()
+		b.mu.RLock()
 		num = b.data
 		quit = b.quit
-		b.rwmu.RUnlock()
+		b.mu.RUnlock()
 		if quit {
 			fmt.Println("Reader ", n, "read ", num, "and quit")
 			return // stop reading after writer stopped writing
@@ -40,22 +40,22 @@ func writer(wg *sync.WaitGroup, b *Buffer) {
 	defer wg.Done()
 
 	for i := range 10 {
-		b.rwmu.Lock()
+		b.mu.Lock()
 		b.data = i
-		b.rwmu.Unlock()
+		b.mu.Unlock()
 		fmt.Println("Writer wrote:", i)
 		X := time.Duration(rand.Intn(2000))
 		time.Sleep(X * time.Millisecond)
 	}
-	b.rwmu.Lock()
+	b.mu.Lock()
 	b.quit = true
-	b.rwmu.Unlock()
+	b.mu.Unlock()
 	fmt.Println("Writer signalled quit")
 }
 
 func main() {
 	readerCount := 5
-	buffer := &Buffer{data: -1, quit: false}
+	buffer := new(Buffer)
 	wg := new(sync.WaitGroup)
 
 	wg.Add(1)
